@@ -1,8 +1,21 @@
-.sort-header {
-    display: flex;
-    justify-content: space-between;
-    i {
-        cursor: pointer;
-        padding: 0 2px;
+.app-container {
+    .add-new {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .header-menu-right {
+            span {
+                padding: 0 5px;
+            }
+        }
+    }
+
+    .sort-header {
+        display: flex;
+        justify-content: space-between;
+        i {
+            cursor: pointer;
+            padding: 0 2px;
+        }
     }
 }
