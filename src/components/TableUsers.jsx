@@ -15,7 +15,6 @@ import { toast } from "react-toastify";
 
 const TableUsers = () => {
   const [listUsers, setListUsers] = useState([]);
-  // const [totalUSers, setTotalUSers] = useState(0);
 
   const [totalPages, setTotalPage] = useState(0);
   const [isShowModelAddNew, setIsShowModelAddNew] = useState(false);

@@ -1,35 +1,28 @@
 import { useContext, useEffect, useState } from "react";
-import "./Login.scss";
-import { loginApi } from "../../services/UserService";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
+import { handleLoginRedux } from "../../redux/actions/userAction";
+import "./Login.scss";
 function Login() {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
   const { loginContext } = useContext(UserContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const [loadingApi, setLoadingApi] = useState(false);
+  const isLoading = useSelector((state) => state.user.isLoading);
+  const account = useSelector((state) => state.user.account);
+  const user = useSelector((state) => state.user.account);
 
   const handleLogin = async () => {
     if (!email || !password) {
       toast.error("EMail / Password is required");
       return;
     }
-    setLoadingApi(true);
-
-    let res = await loginApi(email.trim(), password);
-    if (res && res.token) {
-      loginContext(email, res.token);
-      navigate("/");
-    } else {
-      if (res && res.status === 400) {
-        toast.error(res.data.error);
-      }
-    }
-    setLoadingApi(false);
+    dispatch(handleLoginRedux(email, password));
   };
   const handleGoBack = () => {
     navigate("/");
@@ -40,9 +33,15 @@ function Login() {
       navigate("/");
     }
   };
+  useEffect(() => {
+    if (account && account.auth === true) {
+      navigate("/");
+    }
+  }, [account]);
+
   return (
     <>
-      <div className="login-container col-sm-12 col-12 col-sm-4">
+      <div className="login-container  col-12 col-sm-4">
         <div className="title">Log in</div>
         <div className="text">Email or username</div>
         <div>
@@ -77,7 +76,7 @@ function Login() {
           disabled={email && password ? false : true}
           onClick={() => handleLogin()}
         >
-          {loadingApi && <i className="fas fa-spinner fa-spin"></i>}
+          {isLoading && <i className="fas fa-spinner fa-spin"></i>}
           &nbsp;Login
         </button>
         <div className="back">

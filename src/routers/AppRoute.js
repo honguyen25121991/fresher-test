@@ -4,7 +4,6 @@ import Home from "../components/Home/Home";
 import Login from "../components/LoginPage/Login";
 import NotFoundPage from "../components/NotFoundPage/NotFoundPage";
 import TableUsers from "../components/TableUsers";
-
 import PrivateRoute from "./PrivateRoute";
 
 const AppRoute = () => {

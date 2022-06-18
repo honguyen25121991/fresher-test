@@ -6,17 +6,24 @@ import logo from "../assets/images/logo192.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UserContext } from "../context/UserContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { handleLogoutRedux } from "../redux/actions/userAction";
 
 const Header = (props) => {
-  const { logout, user } = useContext(UserContext);
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.account);
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    logout();
-    navigate("/");
-    toast.success("Logout success");
+    dispatch(handleLogoutRedux());
   };
+  useEffect(() => {
+    if (user && user.auth === false) {
+      navigate("/");
+      toast.success("Log out success");
+    }
+  }, [user]);
   return (
     <>
       <Navbar bg="light" expand="lg">
