@@ -2,13 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { UserContext } from "../../context/UserContext";
 import { handleLoginRedux } from "../../redux/actions/userAction";
 import "./Login.scss";
 function Login() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
-  const { loginContext } = useContext(UserContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,9 +25,9 @@ function Login() {
   const handleGoBack = () => {
     navigate("/");
   };
-  const handlePressEnter = (event) => {
+  const handlePressEnter = async (event) => {
     if (event && event.keyCode === 13) {
-      loginContext(email);
+      dispatch(handleLoginRedux(email, password));
       navigate("/");
     }
   };

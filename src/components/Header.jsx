@@ -5,8 +5,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "../assets/images/logo192.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { UserContext } from "../context/UserContext";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogoutRedux } from "../redux/actions/userAction";
 
