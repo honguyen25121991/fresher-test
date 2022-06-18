@@ -11,11 +11,18 @@
     }
 
     .sort-header {
-        display: flex;
+        // display: flex;
         justify-content: space-between;
         i {
             cursor: pointer;
             padding: 0 2px;
         }
     }
+    .customize-table {
+        width: inherit;
+        overflow-x: auto;
+    }
+}
+.pagination {
+    justify-content: content !important;
 }
